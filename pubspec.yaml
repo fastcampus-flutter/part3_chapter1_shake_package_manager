@@ -31,7 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  get: ^4.6.5
   shake: ^2.2.0
   velocity_x: ^3.6.0
 

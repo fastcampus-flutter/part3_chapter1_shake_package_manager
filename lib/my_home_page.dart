@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:shake/shake.dart';
 import 'package:shake_count_app/red_box.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -14,7 +13,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
-  RxInt _counter = RxInt(0);
+  ValueNotifier<int> _counter = ValueNotifier(0);
   late ShakeDetector detector;
 
   @override
@@ -22,9 +21,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     detector = ShakeDetector.autoStart(
       onPhoneShake: () {
-        setState(() {
-          _counter++;
-        });
+        _counter.value = _counter.value + 1;
       },
       shakeThresholdGravity: 1.5,
     );
@@ -38,9 +35,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   }
 
   void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    _counter.value = _counter.value + 1;
   }
 
   @override
@@ -81,9 +76,12 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                 const RedBox(),
               ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.displayLarge,
+            ValueListenableBuilder(
+              valueListenable: _counter,
+              builder: (BuildContext context, int value, Widget? child) => Text(
+                '${_counter.value}',
+                style: Theme.of(context).textTheme.displayLarge,
+              ),
             ),
           ],
         ),
