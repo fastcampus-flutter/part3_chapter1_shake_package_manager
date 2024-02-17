@@ -54,7 +54,11 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                 const RedBox(),
                 Column(
                   children: [
-                    const RedBox().box.padding(EdgeInsets.all(30)).color(Colors.blue).make(),
+                    const RedBox()
+                        .box
+                        .padding(EdgeInsets.all(30))
+                        .color(Colors.blue)
+                        .make(),
                     '흔들어서 카운트를 올려보세요.'
                         .text
                         .color(Colors.red)
@@ -101,6 +105,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         detector.startListening();
         break;
       case AppLifecycleState.inactive:
+        break;
+      case AppLifecycleState.hidden:
         break;
       case AppLifecycleState.paused:
         detector.stopListening();
